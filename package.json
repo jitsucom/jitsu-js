@@ -15,7 +15,7 @@
     "packages/*"
   ],
   "version": "3.0.0",
-  "repository": "git@github.com:Flyover-ArtSk/test-sdk.git",
+  "repository": "git@github.com:jitsucom/jitsu-js.git",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT"
 }
