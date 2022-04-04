@@ -1,0 +1,21 @@
+{
+  "name": "root",
+  "description": "Jitsu JavaScript SDK (more at http://jitsu.com/docs/js-sdk)",
+  "private": true,
+  "scripts": {
+    "build": "lerna run --stream --concurrency 1 --sort build",
+    "publish": "lerna run tsc && lerna publish"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.22",
+    "lerna": "^4.0.0",
+    "typescript": "^4.6.2"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "3.0.0",
+  "repository": "git@github.com:Flyover-ArtSk/test-sdk.git",
+  "author": "Jitsu Dev <dev@jitsu.com>",
+  "license": "MIT"
+}

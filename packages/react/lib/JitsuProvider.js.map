@@ -1,0 +1,1 @@
+{"version":3,"file":"JitsuProvider.js","sourceRoot":"","sources":["../src/JitsuProvider.tsx"],"names":[],"mappings":";;AAAA,iCAAyB;AACzB,iDAAyC;AAOzC,MAAM,aAAa,GAAiC,UAAU,EAC5D,QAAQ,EACR,MAAM,GACP;IACC,MAAM,OAAO,GAAG,sBAAY,CAAA;IAE5B,OAAO,8BAAC,OAAO,CAAC,QAAQ,IAAC,KAAK,EAAE,MAAM,IAAG,QAAQ,CAAoB,CAAA;AACvE,CAAC,CAAA;AAED,kBAAe,aAAa,CAAA"}

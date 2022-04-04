@@ -1,0 +1,41 @@
+{
+  "name": "@jitsu/react",
+  "version": "3.0.0",
+  "description": "Jitsu JavaScript SDK (more at http://jitsu.com/docs/js-sdk)",
+  "author": "Jitsu Dev <dev@jitsu.com>",
+  "license": "MIT",
+  "main": "lib/index.es.js",
+  "typings": "lib/index.d.ts",
+  "module": "lib/index.es.js",
+  "private": false,
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@jitsu/sdk-js": "latest"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@types/react": "^17.0.43",
+    "react": "^17.0.2",
+    "react-router": "^6.2.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4"
+  },
+  "scripts": {
+    "build": "rollup -c && tsc",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "gitHead": "7973a7ae97a9ea082a50c01630db55c659fc85fc"
+}
