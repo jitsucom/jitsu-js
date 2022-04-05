@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useCallback } from 'react';
+import * as React from 'react';
+import { createContext, useContext, useCallback } from 'react';
 import { jitsuClient } from '@jitsu/sdk-js';
 
 const JitsuContext = createContext(null);

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { JitsuClient } from "@jitsu/sdk-js";
 export interface JitsuProviderProps {
     client: JitsuClient;

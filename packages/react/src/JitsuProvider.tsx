@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import JitsuContext from './JitsuContext'
 import { JitsuClient } from "@jitsu/sdk-js";
 
