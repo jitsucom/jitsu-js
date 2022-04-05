@@ -4,12 +4,12 @@ import { useEffect } from "react";
 
 function Home() {
 
-  const { id, trackEvent, trackPageView } = useJitsu();
+  const { id, track, trackPageView } = useJitsu();
 
   useEffect(() => {
     id({id: 'nextjs_test', email: 'artem@jitsu.com'})
     trackPageView()
-    trackEvent('custom_event', {test: true});
+    track('custom_event', {test: true});
   }, [])
 
   return (

@@ -15,7 +15,7 @@ function useJitsu() {
     [client],
   )
 
-  const trackEvent = useCallback(
+  const track = useCallback(
     (typeName: string, payload?: EventPayload): Promise<void> => client?.track(typeName, payload),
     [client],
   )
@@ -32,7 +32,7 @@ function useJitsu() {
 
   return {
     id,
-    trackEvent,
+    track,
     trackPageView,
     rawTrack,
     interceptAnalytics

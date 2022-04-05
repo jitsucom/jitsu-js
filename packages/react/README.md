@@ -44,6 +44,7 @@ ReactDOM.render(
 
 #### Usage
 
+base:
 ```javascript
 import { useJitsu } from "@jitsu/react";
 
@@ -65,6 +66,20 @@ const App = () => {
 }
 ```
 
+`usePageView` with react-router:
+```javascript
+const App = () => {
+  usePageView() //this hook will send pageview track event on router change
+
+  return (
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="page" element={<Page />} />
+    </Routes>
+  );
+}
+```
+
 ### Jitsu SDK options
 
 | Parameter         | Type      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -82,7 +97,17 @@ const App = () => {
 | `force_use_fetch` | `boolean` | This parameter forces SDK to use the fetch implementation (custom or default) even in browser.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `custom_headers`  | `boolean` | This parameter adds custom headers to each request. Can be either a static object (`Record<string, string>`) or a function that returns an object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-### API
+### Hooks
+
+### useJitsu
+
+Returns object with `id`, `trackEvent`, `trackPageView`, `rawTrack` and `interceptAnalytics` methods of Jitsu SDK.
+
+### usePageView
+
+Can be used only with react-router. Sends `pageview` event on every route change.
+
+### Jitsu SDK API
 
 ### id: (userData: UserProps, doNotSendEvent?: boolean) => Promise
 Sets a user data.
@@ -110,3 +135,10 @@ No additional detection (user-agent, url and so on will be done). No payload str
 
 ### trackPageView: () => Promise
 Sends track event with `pageview` name.
+
+### interceptAnalytics: (analytics: any) => void
+Explicit call for intercepting Segment's analytics.
+
+| Param     | Type  | Description             |
+|-----------|-------|-------------------------|
+| analytics | `any` | window.analytics object |

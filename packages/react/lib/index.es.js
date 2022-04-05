@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { createContext, useContext, useCallback } from 'react';
+import { createContext, useContext, useCallback, useEffect } from 'react';
 import { jitsuClient } from '@jitsu/sdk-js';
+import { useLocation } from 'react-router';
 
 const JitsuContext = createContext(null);
 
@@ -17,17 +18,25 @@ function useJitsu() {
     const client = useContext(JitsuContext);
     const id = useCallback((userData, doNotSendEvent) => client === null || client === void 0 ? void 0 : client.id(userData, doNotSendEvent), [client]);
     const trackPageView = useCallback(() => client === null || client === void 0 ? void 0 : client.track('pageview'), [client]);
-    const trackEvent = useCallback((typeName, payload) => client === null || client === void 0 ? void 0 : client.track(typeName, payload), [client]);
+    const track = useCallback((typeName, payload) => client === null || client === void 0 ? void 0 : client.track(typeName, payload), [client]);
     const rawTrack = useCallback((payload) => client === null || client === void 0 ? void 0 : client.rawTrack(payload), [client]);
     const interceptAnalytics = useCallback((analytics) => client === null || client === void 0 ? void 0 : client.interceptAnalytics(analytics), [client]);
     return {
         id,
-        trackEvent,
+        track,
         trackPageView,
         rawTrack,
         interceptAnalytics
     };
 }
 
-export { JitsuContext, JitsuProvider, createClient, useJitsu };
+function usePageView() {
+    let location = useLocation();
+    const { track } = useJitsu();
+    useEffect(() => {
+        track('pageview');
+    }, [location, track]);
+}
+
+export { JitsuContext, JitsuProvider, createClient, useJitsu, usePageView };
 //# sourceMappingURL=index.es.js.map

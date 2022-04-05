@@ -16,7 +16,7 @@ export class NgxJitsuService {
     this.client.id(userData, doNotSendEvent)
   }
 
-  public trackEvent = (typeName: string, payload?: EventPayload) => {
+  public track = (typeName: string, payload?: EventPayload) => {
     this.client.track(typeName, payload);
   }
 

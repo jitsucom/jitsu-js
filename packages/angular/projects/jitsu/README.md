@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
 | `force_use_fetch` | `boolean` | This parameter forces SDK to use the fetch implementation (custom or default) even in browser.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `custom_headers`  | `boolean` | This parameter adds custom headers to each request. Can be either a static object (`Record<string, string>`) or a function that returns an object.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
-### API
+### Jitsu SDK API (you can call these methods from NgxJitsuService)
 
 ### id: (userData: UserProps, doNotSendEvent?: boolean) => Promise
 Sets a user data.
@@ -105,3 +105,10 @@ No additional detection (user-agent, url and so on will be done). No payload str
 
 ### trackPageView: () => Promise
 Sends track event with `pageview` name.
+
+### interceptAnalytics: (analytics: any) => void
+Explicit call for intercepting Segment's analytics.
+
+| Param     | Type  | Description             |
+|-----------|-------|-------------------------|
+| analytics | `any` | window.analytics object |

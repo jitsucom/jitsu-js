@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createClient, JitsuProvider } from "@jitsu/react";
+import { BrowserRouter } from "react-router-dom";
 
 const jitsuClient = createClient({
   tracking_host: "http://localhost:8001/",
@@ -13,7 +14,9 @@ const jitsuClient = createClient({
 ReactDOM.render(
   <React.StrictMode>
     <JitsuProvider client={jitsuClient}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </JitsuProvider>
   </React.StrictMode>,
   document.getElementById('root')

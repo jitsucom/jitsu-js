@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   }
 
   onCLick(btnName) {
-    this.jitsu.trackEvent('btn_clock', { btn: btnName })
+    this.jitsu.track('btn_clock', { btn: btnName })
   }
 
   ngOnInit() {
