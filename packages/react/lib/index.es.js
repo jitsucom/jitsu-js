@@ -30,12 +30,12 @@ function useJitsu() {
     };
 }
 
-function usePageView() {
+function usePageView(payload) {
     let location = useLocation();
     const { track } = useJitsu();
     useEffect(() => {
-        track('pageview');
-    }, [location, track]);
+        track('pageview', payload);
+    }, [location, track, payload]);
 }
 
 export { JitsuContext, JitsuProvider, createClient, useJitsu, usePageView };

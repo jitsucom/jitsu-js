@@ -6,7 +6,7 @@ const Main = () => {
   const { id, track, trackPageView } = useJitsu();
 
   useEffect(() => {
-    id({id: 'react_test_9', email: 'artem@jitsu.com'})
+    id({id: '123456', email: 'test@email.com'})
     trackPageView()
     track('custom_event', {test: true});
   }, [])
