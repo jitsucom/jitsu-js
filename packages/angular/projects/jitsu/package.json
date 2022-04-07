@@ -6,8 +6,8 @@
   "license": "MIT",
   "private": false,
   "peerDependencies": {
-    "@angular/common": "10.x || 11.x || 12.x || 13.x",
-    "@angular/core": "10.x || 11.x || 12.x || 13.x"
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
   },
   "dependencies": {
     "@jitsu/sdk-js": "latest",

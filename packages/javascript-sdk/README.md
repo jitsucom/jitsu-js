@@ -7,6 +7,9 @@ main [Jitsu JavaScript integration docs](https://jitsu.com/docs/sending-data/js-
 
 ### [Join Jitsu Slack](https://jitsu.com/slack)
 
+## Links
+
+- [Official SDK Docs](https://jitsu.com/docs/sending-data/js-sdk)
 
 ## Maintainers Guide
 
@@ -30,4 +33,3 @@ npmjs account beforehand (make sure you have access to Jitsu team)
 
  * Login with your *personal* credentials with `npm login`
  * Run `yarn install && yarn build && yarn test && npm publish --access public`
- * Update [jitsu-react-example](https://github.com/jitsucom/jitsu-react-example) with latest
