@@ -1,10 +1,16 @@
 {
   "name": "@jitsu/angular",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Jitsu JavaScript SDK for Angular (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
   "private": false,
+  "module": "dist/fesm2015/jitsu-angular.mjs",
+  "es2020": "dist/fesm2020/jitsu-angular.mjs",
+  "esm2020": "dist/esm2020/jitsu-angular.mjs",
+  "fesm2020": "dist/fesm2020/jitsu-angular.mjs",
+  "fesm2015": "dist/fesm2015/jitsu-angular.mjs",
+  "typings": "dist/jitsu-angular.d.ts",
   "peerDependencies": {
     "@angular/common": ">=10.0.0",
     "@angular/core": ">=10.0.0"

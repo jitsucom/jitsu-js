@@ -1,0 +1,41 @@
+{
+  "name": "@jitsu/angular",
+  "version": "1.0.0",
+  "description": "Jitsu JavaScript SDK for Angular (more at http://jitsu.com/docs/js-sdk)",
+  "author": "Jitsu Dev <dev@jitsu.com>",
+  "license": "MIT",
+  "private": false,
+  "module": "fesm2015/jitsu-angular.mjs",
+  "es2020": "fesm2020/jitsu-angular.mjs",
+  "esm2020": "esm2020/jitsu-angular.mjs",
+  "fesm2020": "fesm2020/jitsu-angular.mjs",
+  "fesm2015": "fesm2015/jitsu-angular.mjs",
+  "typings": "jitsu-angular.d.ts",
+  "peerDependencies": {
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
+  },
+  "dependencies": {
+    "@jitsu/sdk-js": "latest",
+    "tslib": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jitsucom/jitsu-js",
+    "directory": "packages/react"
+  },
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./jitsu-angular.d.ts",
+      "esm2020": "./esm2020/jitsu-angular.mjs",
+      "es2020": "./fesm2020/jitsu-angular.mjs",
+      "es2015": "./fesm2015/jitsu-angular.mjs",
+      "node": "./fesm2015/jitsu-angular.mjs",
+      "default": "./fesm2020/jitsu-angular.mjs"
+    }
+  },
+  "sideEffects": false
+}

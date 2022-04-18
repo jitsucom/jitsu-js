@@ -10,7 +10,6 @@
   },
   "private": true,
   "dependencies": {
-    "@jitsu/angular": "file:../../packages/angular/dist/jitsu",
     "@angular/animations": "~13.3.0",
     "@angular/common": "~13.3.0",
     "@angular/compiler": "~13.3.0",
@@ -19,6 +18,8 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
+    "@jitsu/angular": "^1.0.3",
+    "ngx-google-analytics": "^13.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
