@@ -18,4 +18,3 @@ function useJitsu() {
     };
 }
 exports.default = useJitsu;
-//# sourceMappingURL=useJitsu.js.map

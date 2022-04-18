@@ -11,4 +11,3 @@ var useJitsu_1 = require("./useJitsu");
 Object.defineProperty(exports, "useJitsu", { enumerable: true, get: function () { return useJitsu_1.default; } });
 var usePageView_1 = require("./usePageView");
 Object.defineProperty(exports, "usePageView", { enumerable: true, get: function () { return usePageView_1.default; } });
-//# sourceMappingURL=index.js.map

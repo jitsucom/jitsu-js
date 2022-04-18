@@ -7,4 +7,3 @@ const JitsuProvider = function ({ children, client, }) {
     return React.createElement(Context.Provider, { value: client }, children);
 };
 exports.default = JitsuProvider;
-//# sourceMappingURL=JitsuProvider.js.map

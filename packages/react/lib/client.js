@@ -5,4 +5,3 @@ function createClient(params) {
     return (0, sdk_js_1.jitsuClient)(params);
 }
 exports.default = createClient;
-//# sourceMappingURL=client.js.map

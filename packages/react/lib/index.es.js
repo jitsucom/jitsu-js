@@ -39,4 +39,3 @@ function usePageView(payload) {
 }
 
 export { JitsuContext, JitsuProvider, createClient, useJitsu, usePageView };
-//# sourceMappingURL=index.es.js.map
