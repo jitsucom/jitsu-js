@@ -6,10 +6,11 @@ import { useEffect } from "react";
 export default function App() {
   const {id, track, trackPageView} = useJitsu();
 
-  // useEffect(() => {
-  //   id({id: '123456', email: 'test@email.com'})
-  //   track('custom_event', {test: true});
-  // }, [])
+  useEffect(() => {
+    id({id: '123456', email: 'test@email.com'})
+    trackPageView()
+    track('custom_event', {test: true});
+  }, [id, track, trackPageView])
 
   return (
     <div className="container">

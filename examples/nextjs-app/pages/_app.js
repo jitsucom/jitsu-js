@@ -6,8 +6,6 @@ const jitsuClient = createClient({
 });
 
 function MyApp({Component, pageProps}) {
-  useNextPageView()
-
   return <JitsuProvider client={jitsuClient}>
     <Component {...pageProps} />
   </JitsuProvider>
