@@ -11,8 +11,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jitsucom/jitsu",
-    "directory": "javascript-sdk"
+    "url": "https://github.com/jitsucom/jitsu-js",
+    "directory": "packages/javascript-sdk"
   },
   "publishConfig": {
     "access": "public"

@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/react",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Jitsu JavaScript SDK for React (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
@@ -38,5 +38,9 @@
     "build": "rollup -c && tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "repository": "git@github.com:jitsucom/jitsu-js.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jitsucom/jitsu-js",
+    "directory": "packages/react"
+  }
 }

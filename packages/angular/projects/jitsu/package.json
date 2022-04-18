@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/angular",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Jitsu JavaScript SDK for Angular (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
@@ -13,5 +13,9 @@
     "@jitsu/sdk-js": "latest",
     "tslib": "^2.3.0"
   },
-  "repository": "git@github.com:jitsucom/jitsu-js.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jitsucom/jitsu-js",
+    "directory": "packages/react"
+  }
 }
