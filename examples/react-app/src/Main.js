@@ -9,7 +9,7 @@ const Main = () => {
     id({id: '123456', email: 'test@email.com'})
     trackPageView()
     track('custom_event', {test: true});
-  }, [])
+  }, [id, trackPageView, track])
 
   const clickHandler = () => {
     track("my_button_click")
