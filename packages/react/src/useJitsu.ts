@@ -1,9 +1,15 @@
 import { useCallback, useContext } from "react";
 import JitsuContext from "./JitsuContext";
-import { EventPayload, UserProps } from "@jitsu/sdk-js";
+import { JitsuClient, EventPayload, UserProps } from "@jitsu/sdk-js";
 
-function useJitsu() {
+/**
+ * See for details http://jitsu.com/docs/sending-data/js-sdk/react
+ */
+function useJitsu(): JitsuClient {
   const client = useContext(JitsuContext)
+  if (!client) {
+    throw new Error("Before calling useJitsu() hook, please wrap your component into <JitsuProvider />. Read more in http://jitsu.com/docs/sending-data/js-sdk/react")
+  }
 
   const id = useCallback(
     (userData: UserProps, doNotSendEvent?: boolean): Promise<void> => client?.id(userData, doNotSendEvent),
@@ -31,6 +37,7 @@ function useJitsu() {
   )
 
   return {
+    ...client,
     id,
     track,
     trackPageView,
