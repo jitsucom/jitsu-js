@@ -73,8 +73,8 @@ export class AppComponent implements OnInit {
 
 ## Jitsu SDK parameters and methods
 
-* [Parameters](/docs/sending-data/js-sdk/parameters-reference)
-* [Methods](/docs/sending-data/js-sdk/methods-reference) - you can call all SDK methods from `NgxJitsuService` too
+* [Parameters](https://jitsu.com/docs/sending-data/js-sdk/parameters-reference)
+* [Methods](https://jitsu.com/docs/sending-data/js-sdk/methods-reference) - you can call all SDK methods from `NgxJitsuService` too
 
 ## Example app
 
