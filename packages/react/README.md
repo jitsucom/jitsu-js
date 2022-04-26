@@ -108,4 +108,4 @@ Read about all SDK parameters and methods in our [documentation](https://jitsu.c
 
 ## Example app
 
-You can find example app [here](https://github.com/jitsucom/jitsu-js/tree/master/examples/angular-app).
+You can find example app [here](https://github.com/jitsucom/jitsu-js/tree/master/examples/react-app).
