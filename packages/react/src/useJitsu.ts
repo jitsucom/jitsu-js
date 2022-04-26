@@ -5,7 +5,7 @@ import { JitsuClient, EventPayload, UserProps } from "@jitsu/sdk-js";
 /**
  * See for details http://jitsu.com/docs/sending-data/js-sdk/react
  */
-function useJitsu(): JitsuClient {
+function useJitsu(): JitsuClient & {trackPageView: () => Promise<void>} {
   const client = useContext(JitsuContext)
   if (!client) {
     throw new Error("Before calling useJitsu() hook, please wrap your component into <JitsuProvider />. Read more in http://jitsu.com/docs/sending-data/js-sdk/react")

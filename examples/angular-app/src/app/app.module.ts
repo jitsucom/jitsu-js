@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    // initialize Jitsu module which provides JitsuService
     NgxJitsuModule.forRoot({
       tracking_host: "http://localhost:8001/",
       key: "js.bqexj4t3vs7i4q7q1j3358.ixbyul0pyd5crmdftlif7"

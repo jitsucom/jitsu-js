@@ -5,7 +5,7 @@
   "scripts": {
     "lerna": "lerna",
     "build": "yarn lerna run --stream --concurrency 1 --sort build",
-    "publish": "yarn lerna run tsc && lerna publish"
+    "publish": "yarn lerna run build && yarn lerna publish"
   },
   "devDependencies": {
     "@types/node": "^17.0.22",

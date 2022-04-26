@@ -1,7 +1,7 @@
-import {useEffect} from "react";
-import {useLocation} from "react-router";
+import { useEffect } from "react";
+import { useLocation } from "react-router";
 import useJitsu from "./useJitsu";
-import {EventPayload, JitsuClient} from "@jitsu/sdk-js";
+import { EventPayload, JitsuClient } from "@jitsu/sdk-js";
 
 /**
  * @param opts.callback callback that should be called sending data to jitsu. This will be a good place to identify user

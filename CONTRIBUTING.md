@@ -8,7 +8,7 @@ The requirements:
 
 * `yarn lerna bootstrap` install all dependencies
 * `yarn lerna run test` runs packages tests
-* `yarn lerna run build` builds both npm package and `lib.js` browser bundle
+* `yarn lerna run build` builds all packages
 
 ### Publishing new version
 

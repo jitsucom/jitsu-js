@@ -6,11 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { createClient, JitsuProvider } from "@jitsu/react";
 import { BrowserRouter } from "react-router-dom";
 
+// initialize Jitsu client
 const jitsuClient = createClient({
   tracking_host: "http://localhost:8001/",
   key: "js.bqexj4t3vs7i4q7q1j3358.ixbyul0pyd5crmdftlif7"
 });
 
+// wrap our app with Jitsu provider
 ReactDOM.render(
   <React.StrictMode>
     <JitsuProvider client={jitsuClient}>

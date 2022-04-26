@@ -1,27 +1,34 @@
 {
-  "name": "angular",
-  "version": "0.0.0",
+  "name": "@jitsu/angular",
+  "version": "3.0.0",
+  "description": "Jitsu JavaScript SDK for Angular (more at http://jitsu.com/docs/js-sdk)",
+  "author": "Jitsu Dev <dev@jitsu.com>",
+  "license": "MIT",
+  "private": false,
+  "module": "dist/fesm2015/jitsu-angular.mjs",
+  "es2020": "dist/fesm2020/jitsu-angular.mjs",
+  "esm2020": "dist/esm2020/jitsu-angular.mjs",
+  "fesm2020": "dist/fesm2020/jitsu-angular.mjs",
+  "fesm2015": "dist/fesm2015/jitsu-angular.mjs",
+  "typings": "dist/jitsu-angular.d.ts",
   "scripts": {
     "ng": "ng",
-    "build": "ng build jitsu"
+    "build": "ng build"
   },
-  "private": true,
+  "peerDependencies": {
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
+  },
   "dependencies": {
-    "@angular/animations": "~13.3.0",
-    "@angular/common": "~13.3.0",
-    "@angular/compiler": "~13.3.0",
-    "@angular/core": "~13.3.0",
-    "@angular/forms": "~13.3.0",
-    "@angular/platform-browser": "~13.3.0",
-    "@angular/platform-browser-dynamic": "~13.3.0",
-    "@angular/router": "~13.3.0",
-    "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "@jitsu/sdk-js": "^3.0.0",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0",
     "@angular-devkit/build-angular": "~13.3.0",
     "@angular/cli": "~13.3.0",
+    "@angular/compiler": "~13.3.0",
     "@angular/compiler-cli": "~13.3.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
@@ -33,5 +40,10 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^13.0.0",
     "typescript": "~4.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jitsucom/jitsu-js",
+    "directory": "packages/angular"
   }
 }

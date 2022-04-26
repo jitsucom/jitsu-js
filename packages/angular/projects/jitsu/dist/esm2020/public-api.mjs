@@ -1,6 +1,0 @@
-/*
- * Public API Surface of tracker
- */
-export * from './lib/ngx-jitsu.service';
-export * from './lib/ngx-jitsu.module';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9wdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyx5QkFBeUIsQ0FBQztBQUN4QyxjQUFjLHdCQUF3QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiB0cmFja2VyXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvbmd4LWppdHN1LnNlcnZpY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvbmd4LWppdHN1Lm1vZHVsZSc7XG4iXX0=
