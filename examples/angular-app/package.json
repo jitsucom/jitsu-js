@@ -18,7 +18,7 @@
     "@angular/platform-browser": "~13.3.0",
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
-    "@jitsu/angular": "^1.0.3",
+    "@jitsu/angular": "^3.0.1",
     "ngx-google-analytics": "^13.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
