@@ -88,8 +88,8 @@ function MyApp({Component, pageProps}) {
 export default MyApp
 ```
 If you need to pre-configure jitsu event - for example, identify a user, it's possible to do via `before` callback:
-```typescript
-usePageView({before: (jitsu) => jitsu.id({id: '__USER_ID__', email: '__USER_EMAIL__'})})
+```javascript
+usePageView(jitsuClient, {before: (jitsu) => jitsu.id({id: '__USER_ID__', email: '__USER_EMAIL__'})})
 ```
 
 ## Server Side Tracking
