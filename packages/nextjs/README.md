@@ -102,7 +102,7 @@ Jitsu can track events on server-side:
 
 For manual tracking you need to initialize Jitsu client
 ```javascript
-import { createClient, JitsuProvider } from "@jitsu/nextjs";
+import { createClient } from "@jitsu/nextjs";
 
 // initialize Jitsu client
 const jitsuClient = createClient({
