@@ -11,6 +11,9 @@
   "fesm2020": "dist/fesm2020/jitsu-angular.mjs",
   "fesm2015": "dist/fesm2015/jitsu-angular.mjs",
   "typings": "dist/jitsu-angular.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "ng": "ng",
     "build": "ng build"
