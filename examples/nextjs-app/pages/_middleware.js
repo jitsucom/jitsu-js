@@ -1,4 +1,4 @@
-import { createClient } from "@jitsu/react";
+import { createClient } from "@jitsu/nextjs";
 
 const jitsu = createClient({
   tracking_host: "http://localhost:8001/",
@@ -10,5 +10,5 @@ export function middleware(req, ev) {
   if ( !page?.name ) {
     return;
   }
-  jitsu.track("page_view", {page: req.page})
+  jitsu.track("middleware_pageview", {page: req.page})
 }
