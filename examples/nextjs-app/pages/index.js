@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 export default function App() {
-  const {id, track, trackPageView} = useJitsu();
+  const {id, track, trackPageView} = useJitsu(); // import methods from useJitsu hook
 
   useEffect(() => {
-    id({id: '123456', email: 'test@email.com'})
-    trackPageView()
-    track('custom_event', {test: true});
+    id({id: '123456', email: 'test@email.com'}) // identify current user for all track events
+    trackPageView(); // send page_view event
+    track('custom_event', {test: true}); // send custom event with payload
   }, [id, track, trackPageView])
 
   return (

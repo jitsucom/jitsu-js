@@ -5,7 +5,7 @@ import Page from "./Page";
 import Main from "./Main";
 
 const App = () => {
-  usePageView()
+  usePageView() // this hook will send pageview track event on router change
 
   return (
     <Routes>

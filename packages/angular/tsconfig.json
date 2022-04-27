@@ -23,8 +23,8 @@
       "dom"
     ],
     "paths": {
-      "@jitsu-sdk/ngx": [
-        "dist/jitsu"
+      "@jitsu/angular": [
+        "dist"
       ]
     }
   },

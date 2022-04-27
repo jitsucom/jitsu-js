@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxJitsuService } from "@jitsu/angular";
+import { User, UserService } from "./user.service";
+import { NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs/operators";
+
 
 @Component({
   selector: 'app-root',
@@ -9,16 +13,26 @@ import { NgxJitsuService } from "@jitsu/angular";
 export class AppComponent implements OnInit {
   title = 'angular-app';
 
-  constructor(public jitsu: NgxJitsuService) {
-
+  constructor(private jitsu: NgxJitsuService, private userService: UserService, router: Router) {
+    // subscribe on router navigation end event and track page view
+    router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd)
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.jitsu.trackPageView()
+      });
   }
 
   onCLick(btnName) {
-    this.jitsu.track('btn_clock', { btn: btnName })
+    // send btn_click_event with button name payload on button click
+    this.jitsu.track('btn_click', { btn: btnName })
   }
 
   ngOnInit() {
-    this.jitsu.id({id: '0', email: 'user@jitsu.com'})
-    this.jitsu.trackPageView()
+    // identify current user for all track events
+    this.userService.currentUser.subscribe((user: User) => {
+      this.jitsu.id({id: user.ID, email: user.EMAIl})
+    })
   }
 }
