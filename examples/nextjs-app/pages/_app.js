@@ -1,4 +1,4 @@
-import { createClient, JitsuProvider } from "@jitsu/react";
+import { createClient, JitsuProvider, usePageView } from "@jitsu/nextjs";
 
 // initialize Jitsu client
 const jitsuClient = createClient({
@@ -8,6 +8,8 @@ const jitsuClient = createClient({
 
 // wrap our app with Jitsu provider
 function MyApp({Component, pageProps}) {
+  usePageView(jitsuClient); // this hook will send pageview track event on router change
+
   return <JitsuProvider client={jitsuClient}>
     <Component {...pageProps} />
   </JitsuProvider>

@@ -1,16 +1,15 @@
 import Head from 'next/head'
-import { useJitsu } from "@jitsu/react";
+import { useJitsu } from "@jitsu/nextjs";
 import Link from "next/link";
 import { useEffect } from "react";
 
 export default function App() {
-  const {id, track, trackPageView} = useJitsu(); // import methods from useJitsu hook
+  const {id, track} = useJitsu(); // import methods from useJitsu hook
 
   useEffect(() => {
     id({id: '123456', email: 'test@email.com'}) // identify current user for all track events
-    trackPageView(); // send page_view event
     track('custom_event', {test: true}); // send custom event with payload
-  }, [id, track, trackPageView])
+  }, [id, track])
 
   return (
     <div className="container">
