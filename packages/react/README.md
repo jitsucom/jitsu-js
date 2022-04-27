@@ -51,7 +51,7 @@ See [parameters list](https://jitsu.com/docs/sending-data/js-sdk/parameters-refe
 import { useJitsu } from "@jitsu/react";
 
 const App = () => {
-  const {id, trackEvent, trackPageView} = useJitsu(); // import methods from useJitsu hook
+  const {id, track, trackPageView} = useJitsu(); // import methods from useJitsu hook
 
   useEffect(() => {
     id({id: '__USER_ID__', email: '__USER_EMAIL__'}); // identify current user for all track events
@@ -59,7 +59,7 @@ const App = () => {
   }, [])
   
   const onClick = (btnName: string) => {
-    trackEvent('btn_click', {btn: btnName}); // send btn_click event with button name payload on click
+    track('btn_click', {btn: btnName}); // send btn_click event with button name payload on click
   }
   
   return (
@@ -93,7 +93,7 @@ usePageView({before: (jitsu) => jitsu.id({id: '__USER_ID__', email: '__USER_EMAI
 
 ### useJitsu
 
-Returns object with `id`, `trackEvent`, `trackPageView`, `rawTrack`, `set`, `unset` and `interceptAnalytics` [methods of Jitsu SDK](https://jitsu.com/docs/sending-data/js-sdk/methods-reference).
+Returns object with `id`, `track`, `trackPageView`, `rawTrack`, `set`, `unset` and `interceptAnalytics` [methods of Jitsu SDK](https://jitsu.com/docs/sending-data/js-sdk/methods-reference).
 
 ### usePageView
 
