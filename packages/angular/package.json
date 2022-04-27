@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/angular",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Jitsu JavaScript SDK for Angular (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "@angular/core": ">=10.0.0"
   },
   "dependencies": {
-    "@jitsu/sdk-js": "^3.0.0",
+    "@jitsu/sdk-js": "^3.0.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
