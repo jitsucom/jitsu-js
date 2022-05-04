@@ -8,14 +8,14 @@ import { EventPayload, JitsuClient } from "@jitsu/sdk-js";
  *                      or/and set a global parameters
  * @param opts.before additional parameters (aka payload)
  */
-function usePageView(opts: { before?: (jitsu: JitsuClient) => void, payload?: EventPayload } = {}): JitsuClient {
+function usePageView(opts: { before?: (jitsu: JitsuClient) => void, typeName?: string, payload?: EventPayload } = {}): JitsuClient {
     let location = useLocation();
     const jitsu = useJitsu()
     useEffect(() => {
         if (opts.before) {
             opts.before(jitsu);
         }
-        jitsu.track('pageview', opts.payload);
+        jitsu.track(opts?.typeName || 'pageview', opts.payload);
     }, [location, jitsu.track, opts.payload, opts.before]);
 
     return jitsu;

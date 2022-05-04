@@ -21,8 +21,8 @@
     "@jitsu/sdk-js": "^3.0.1"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-router": ">=5.x"
+    "react": "15.x || 16.x || 17.x || 18.x",
+    "react-router": "5.x || 6.x"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.2",
