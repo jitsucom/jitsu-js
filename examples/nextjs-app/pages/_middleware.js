@@ -1,14 +1,15 @@
-import { createClient } from "@jitsu/nextjs";
+import { createClient, middlewareEnv } from "@jitsu/nextjs";
+import { NextResponse } from "next/server";
 
 const jitsu = createClient({
-  tracking_host: "http://localhost:8001/",
-  key: "js.bqexj4t3vs7i4q7q1j3358.ixbyul0pyd5crmdftlif7"
+  key: "js.rp15myjljp75nj5q40qbj1.buw2k6zs10oowdgnr7203d"
 })
 
 export function middleware(req, ev) {
-  const { page } = req
-  if ( !page?.name ) {
+  let res = NextResponse.next()
+  if (!req?.page?.name) {
     return;
   }
-  jitsu.track("middleware_pageview", {page: req.page})
+  jitsu.track("middleware_pageview", {env: middlewareEnv(req, res)})
+  return res
 }

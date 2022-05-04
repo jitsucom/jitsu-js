@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
  *                      or/and set a global parameters
  * @param opts.before additional parameters (aka payload)
  */
-function usePageView(jitsu: JitsuClient, opts: { before?: (jitsu: JitsuClient) => void, payload?: EventPayload } = {}): JitsuClient {
+function usePageView(jitsu: JitsuClient, opts: { before?: (jitsu: JitsuClient) => void, typeName?: string, payload?: EventPayload } = {}): JitsuClient {
     const router = useRouter();
 
     useEffect(() => {
@@ -16,7 +16,7 @@ function usePageView(jitsu: JitsuClient, opts: { before?: (jitsu: JitsuClient) =
             if (opts.before) {
                 opts.before(jitsu);
             }
-            jitsu.track('pageview', opts.payload);
+            jitsu.track(opts?.typeName || 'pageview', opts.payload);
         }
 
         handleRouteChange();
