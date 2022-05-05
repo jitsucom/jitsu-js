@@ -1,3 +1,6 @@
-export { JitsuContext, JitsuProvider, createClient, useJitsu } from '@jitsu/react'
-export { default as middlewareEnv } from './middlewareEnv'
+export { default as JitsuContext } from './JitsuContext'
+export { default as JitsuProvider } from './JitsuProvider'
+export { default as createClient } from './client'
+export { default as useJitsu } from './useJitsu'
 export { default as usePageView } from './usePageView'
+export { default as middlewareEnv } from './middlewareEnv'

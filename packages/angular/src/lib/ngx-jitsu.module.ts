@@ -4,6 +4,9 @@ import { NgxJitsuService } from "./ngx-jitsu.service";
 import { JITSU_CONFIG } from "./ngx-jitsu.config";
 
 
+/**
+ * See for details http://jitsu.com/docs/sending-data/js-sdk/angular
+ */
 @NgModule({
   declarations: [],
   imports: [],

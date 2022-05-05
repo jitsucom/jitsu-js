@@ -2,6 +2,10 @@ import { Inject, Injectable } from '@angular/core';
 import { JITSU_CONFIG } from "./ngx-jitsu.config";
 import { JitsuOptions, jitsuClient, JitsuClient, EventPayload, UserProps } from "@jitsu/sdk-js";
 
+
+/**
+ * See for details http://jitsu.com/docs/sending-data/js-sdk/angular
+ */
 @Injectable({
   providedIn: 'root'
 })
