@@ -33,6 +33,7 @@ async function createTestServer()  {
       fetch: fetchMock,
       key: "Test",
       tracking_host: "https://test-host.com",
+      max_send_attempts: 1,
     });
     console.log('Processed. Sending data to Jitsu')
     try {
@@ -75,7 +76,7 @@ test("Test Jitsu Client npm only", async () => {
   let testResult = await _fetch(`http://localhost:${testServer.address().port}/test/page?utm_source=1&gclid=2`);
   expect(testResult.status).toBe(200)
   expect(fetchLog.length).toBe(1)
-  let body = JSON.parse(fetchLog[0].params[0].body)
+  let body = JSON.parse(fetchLog[0].params[0].body)[0]
   console.log("Jitsu Track Payload", body);
   const userId = body?.user?.anonymous_id
   expect(userId).toBeDefined()
@@ -88,7 +89,7 @@ test("Test Jitsu Client npm only", async () => {
   let testResult2 = await _fetch(`http://localhost:${testServer.address().port}/test/page`);
   expect(testResult2.status).toBe(200)
   expect(fetchLog.length).toBe(1)
-  body = JSON.parse(fetchLog[0].params[0].body)
+  body = JSON.parse(fetchLog[0].params[0].body)[0]
   expect(body?.test).toBe(1)
   expect(body?.user?.anonymous_id).toBe(userId)
   expect(body?.doc_search).toBe('');

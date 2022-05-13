@@ -56,7 +56,8 @@ test("test browser", async () => {
     custom_headers: () => ({
       "test1": "val1",
       "test2": "val" + (counter++)
-    })
+    }),
+    max_send_attempts: 1
   });
   await jitsu.id({ email: "john.doe@gmail.com", id: "1212" });
   await jitsu.track("page_view", { test: 1 });

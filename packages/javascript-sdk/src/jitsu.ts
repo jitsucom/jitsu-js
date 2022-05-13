@@ -31,6 +31,7 @@ import { getLogger, setRootLogLevel } from "./log";
 import { isWindowAvailable, requireWindow } from "./window";
 import { CookieOpts, serializeCookie } from "./cookie";
 import { IncomingMessage, ServerResponse } from "http";
+import { LocalStorageQueue, MemoryQueue } from "./queue";
 //import { parse } from "node-html-parser";
 
 const VERSION_INFO = {
@@ -468,6 +469,11 @@ const fetchTransport: (fetch: any) => Transport = (fetch) => {
   };
 };
 
+type QueueStore<T> = {
+  flush: () => T[]
+  push: (...values: T[]) => void
+}
+
 /**
  * Abstraction on top of HTTP calls. Implementation can be either based on XMLHttpRequest, Beacon API or
  * fetch (if running in Node env)
@@ -508,6 +514,11 @@ class JitsuClientImpl implements JitsuClient {
   private beaconApi: boolean = false;
   private transport: Transport = xmlHttpTransport;
   private customHeaders: () => Record<string, string> = () => ({});
+
+  private queue: QueueStore<[any, number]> = new MemoryQueue()
+  private maxSendAttempts: number = 1
+  private retryTimeout: [number, number] = [0, 2000]
+  private flushing: boolean = false
 
   id(props: UserProps, doNotSendEvent?: boolean): Promise<void> {
     this.userProperties = { ...this.userProperties, ...props };
@@ -573,7 +584,16 @@ class JitsuClientImpl implements JitsuClient {
     return this.sendJson(e);
   }
 
-  sendJson(json: any): Promise<void> {
+  async sendJson(json: any): Promise<void> {
+    if (this.maxSendAttempts === 1) {
+      this.queue.push([json, 0])
+      this.scheduleFlush(0)
+    } else {
+      await this.doSendJson(json)
+    }
+  }
+
+  private doSendJson(json: any): Promise<void> {
     let cookiePolicy =
       this.cookiePolicy !== "keep" ? `&cookie_policy=${this.cookiePolicy}` : "";
     let ipPolicy =
@@ -592,6 +612,51 @@ class JitsuClientImpl implements JitsuClient {
     return this.transport(url, jsonString, this.customHeaders(), (code, body) =>
       this.postHandle(code, body)
     );
+  }
+
+  scheduleFlush(timeout?: number) {
+    if (this.flushing) {
+      return
+    }
+
+    this.flushing = true
+    timeout = timeout ?? this.retryTimeout[0] + (this.retryTimeout[1] - this.retryTimeout[0]) * Math.random()
+    getLogger().debug(`Scheduling event queue flush in ${timeout} ms.`)
+
+    setTimeout(() => this.flush(), timeout)
+  }
+
+  private async flush(): Promise<void> {
+    if (isWindowAvailable() && !window.navigator.onLine) {
+      this.flushing = false
+      this.scheduleFlush()
+    }
+
+    let queue = this.queue.flush()
+    this.flushing = false
+
+    if (queue.length === 0) {
+      return
+    }
+
+    try {
+      await this.doSendJson(queue.map(el => el[0]))
+      getLogger().debug(`Successfully flushed ${queue.length} events from queue`)
+    } catch (e) {
+      queue = queue.map(el => [el[0], el[1] + 1] as [any, number]).filter(el => {
+        if (el[1] >= this.maxSendAttempts) {
+          getLogger().error(`Dropping queued event since max send attempts ${this.maxSendAttempts} reached. See logs for details`)
+          return false
+        }
+
+        return true
+      })
+
+      if (queue.length > 0) {
+        this.queue.push(...queue)
+        this.scheduleFlush()
+      }
+    }
   }
 
   postHandle(status: number, response: any): any {
@@ -812,6 +877,23 @@ class JitsuClientImpl implements JitsuClient {
     if (options.segment_hook) {
       interceptSegmentCalls(this);
     }
+
+    if (isWindowAvailable()) {
+      if (!options.disable_event_persistence) {
+        this.queue = new LocalStorageQueue("jitsu-event-queue")
+        this.scheduleFlush(0)
+      }
+
+      window.addEventListener("beforeunload", this.flush)
+    }
+
+    if (!this.queue) {
+      this.queue = new MemoryQueue()
+    }
+
+    this.retryTimeout = [options.min_send_timeout ?? 0, options.max_send_timeout ?? 2000]
+    this.maxSendAttempts = options.max_send_attempts ?? 4
+
     this.initialized = true;
   }
 
