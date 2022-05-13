@@ -96,7 +96,6 @@ test("test browser", async () => {
 });
 
 test("test browser with retries", async () => {
-  let counter = 0;
   mockDisabled = true
   let jitsu: JitsuClient = jitsuClient({
     key: "Test",
@@ -133,5 +132,41 @@ test("test browser with retries", async () => {
   expect(event1?.user?.id).toBe('1212')
   expect(event2?.user?.id).toBe('1212')
   expect(event1.event_type).toBe('user_identify')
+  expect(event2.event_type).toBe('page_view')
+});
+
+test("test browser max attempts exceeded", async () => {
+  mockDisabled = true
+  let jitsu: JitsuClient = jitsuClient({
+    key: "Test",
+    tracking_host: "https://test-host.com",
+    custom_headers: () => ({
+      "test1": "val1",
+      "test2": "val2"
+    }),
+    max_send_attempts: 3,
+    min_send_timeout: 10,
+    max_send_timeout: 10,
+  });
+
+  await jitsu.id({ email: "john.doe@gmail.com", id: "1212" });
+
+  await sleep(500)
+  mockDisabled = false
+
+  await jitsu.track("page_view", { test: 1 });
+
+  await waitFor(() => requestLog.length === 1)
+
+  const payload = JSON.parse(requestLog[0].payload)
+  console.log("Requests", payload)
+  expect(payload.length).toBe(1)
+  const event2 = payload[0]
+
+  expect(requestLog[0].headers?.test1).toBe("val1")
+  expect(requestLog[0].headers?.test2).toBe("val2")
+
+  expect(event2?.user?.email).toBe('john.doe@gmail.com')
+  expect(event2?.user?.id).toBe('1212')
   expect(event2.event_type).toBe('page_view')
 });
