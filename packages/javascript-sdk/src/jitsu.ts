@@ -662,6 +662,8 @@ class JitsuClientImpl implements JitsuClient {
       if (queue.length > 0) {
         this.queue.push(...queue)
         this.scheduleFlush()
+      } else {
+        this.attempt = 1
       }
     }
   }
