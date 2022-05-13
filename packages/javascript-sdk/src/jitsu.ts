@@ -585,7 +585,7 @@ class JitsuClientImpl implements JitsuClient {
   }
 
   async sendJson(json: any): Promise<void> {
-    if (this.maxSendAttempts === 1) {
+    if (this.maxSendAttempts > 1) {
       this.queue.push([json, 0])
       this.scheduleFlush(0)
     } else {
@@ -887,12 +887,10 @@ class JitsuClientImpl implements JitsuClient {
       window.addEventListener("beforeunload", this.flush)
     }
 
-    if (!this.queue) {
-      this.queue = new MemoryQueue()
-    }
-
     this.retryTimeout = [options.min_send_timeout ?? 0, options.max_send_timeout ?? 2000]
-    this.maxSendAttempts = options.max_send_attempts ?? 4
+    if (!!options.max_send_attempts) {
+      this.maxSendAttempts = options.max_send_attempts!
+    }
 
     this.initialized = true;
   }
