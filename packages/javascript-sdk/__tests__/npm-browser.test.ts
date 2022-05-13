@@ -115,7 +115,7 @@ test("test browser with retries", async () => {
   await sleep(500)
   mockDisabled = false
 
-  await waitFor(() => requestLog.length === 1)
+  await waitFor(() => requestLog.length === 1, 1000)
 
   const payload = JSON.parse(requestLog[0].payload)
   console.log("Requests", payload)
@@ -156,7 +156,7 @@ test("test browser max attempts exceeded", async () => {
 
   await jitsu.track("page_view", { test: 1 });
 
-  await waitFor(() => requestLog.length === 1)
+  await waitFor(() => requestLog.length === 1, 1000)
 
   const payload = JSON.parse(requestLog[0].payload)
   console.log("Requests", payload)
