@@ -9,7 +9,7 @@ import * as core from "express-serve-static-core";
 
 type Callback = (() => void) | null;
 
-async function sleep(ms: number) {
+export async function sleep(ms: number) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(undefined);
@@ -165,4 +165,23 @@ export async function runUrl(
 
   await page.close();
   return { allRequests, consoleErrors, pageResponse: result as Response };
+}
+
+export function waitFor(cond: () => boolean, timeout?: number, start?: number): Promise<void> {
+  start = start ?? new Date().getTime()
+  timeout = timeout ?? 5000
+  if (new Date().getTime() > timeout + start) {
+    return Promise.reject("timeout")
+  }
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!cond()) {
+        waitFor(cond, timeout, start).then(resolve).catch(reject)
+        return
+      }
+
+      resolve()
+    }, 100)
+  })
 }

@@ -517,7 +517,7 @@ class JitsuClientImpl implements JitsuClient {
 
   private queue: QueueStore<[any, number]> = new MemoryQueue()
   private maxSendAttempts: number = 1
-  private retryTimeout: [number, number] = [0, 2000]
+  private retryTimeout: [number, number] = [0, 0]
   private flushing: boolean = false
 
   id(props: UserProps, doNotSendEvent?: boolean): Promise<void> {
