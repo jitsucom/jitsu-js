@@ -69,15 +69,26 @@ export class TestServer {
     const eventHandler = (req, res: core.Response, next) => {
       let bodyJson =
         typeof req.body === "object" ? req.body : JSON.parse(req.body);
-      this._requestLog.push(bodyJson);
+      let jitsuSdkExtras: any = undefined
+      if (Array.isArray(bodyJson)) {
+        this._requestLog.push(...bodyJson)
+        if (bodyJson.length) {
+          jitsuSdkExtras = bodyJson[0].jitsu_sdk_extras
+        }
+      } else {
+        this._requestLog.push(bodyJson)
+        jitsuSdkExtras = bodyJson.jitsu_sdk_extras
+      }
+
       console.log(
         "Received payload from JS SDK",
         JSON.stringify(bodyJson, null, 2)
       );
-      if (bodyJson.jitsu_sdk_extras) {
+
+      if (jitsuSdkExtras) {
         //to simulate synchronous destination produce response from incoming event.
         res.send(
-          JSON.stringify({ jitsu_sdk_extras: bodyJson.jitsu_sdk_extras })
+          JSON.stringify({ jitsu_sdk_extras: jitsuSdkExtras })
         );
       } else {
         res.send("{}");

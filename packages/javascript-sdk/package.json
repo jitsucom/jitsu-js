@@ -22,7 +22,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "devserver": "PORT=8081 nodemon --watch '__tests__/common/*.ts' --exec 'ts-node' __tests__/common/devserver.ts",
-    "test": "rollup -c && jest --detectOpenHandles --verbose false",
+    "test": "rollup -c && jest --detectOpenHandles --runInBand --verbose false",
     "build": "rollup -c"
   },
   "jest": {

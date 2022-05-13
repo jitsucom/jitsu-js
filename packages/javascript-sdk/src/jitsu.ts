@@ -516,9 +516,10 @@ class JitsuClientImpl implements JitsuClient {
   private customHeaders: () => Record<string, string> = () => ({});
 
   private queue: QueueStore<[any, number]> = new MemoryQueue()
-  private maxSendAttempts: number = 1
-  private retryTimeout: [number, number] = [0, 0]
+  private maxSendAttempts: number = 4
+  private retryTimeout: [number, number] = [500, 1e12]
   private flushing: boolean = false
+  private attempt: number = 1
 
   id(props: UserProps, doNotSendEvent?: boolean): Promise<void> {
     this.userProperties = { ...this.userProperties, ...props };
@@ -620,7 +621,12 @@ class JitsuClientImpl implements JitsuClient {
     }
 
     this.flushing = true
-    timeout = timeout ?? this.retryTimeout[0] + (this.retryTimeout[1] - this.retryTimeout[0]) * Math.random()
+    if (typeof timeout === "undefined") {
+      let random = Math.random() + 1
+      let factor = Math.pow(2, this.attempt++)
+      timeout = Math.min(this.retryTimeout[0] * random * factor, this.retryTimeout[1])
+    }
+
     getLogger().debug(`Scheduling event queue flush in ${timeout} ms.`)
 
     setTimeout(() => this.flush(), timeout)
@@ -641,11 +647,12 @@ class JitsuClientImpl implements JitsuClient {
 
     try {
       await this.doSendJson(queue.map(el => el[0]))
+      this.attempt = 1
       getLogger().debug(`Successfully flushed ${queue.length} events from queue`)
     } catch (e) {
       queue = queue.map(el => [el[0], el[1] + 1] as [any, number]).filter(el => {
         if (el[1] >= this.maxSendAttempts) {
-          getLogger().error(`Dropping queued event since max send attempts ${this.maxSendAttempts} reached. See logs for details`)
+          getLogger().error(`Dropping queued event after ${el[1]} attempts since max send attempts ${this.maxSendAttempts} reached. See logs for details`)
           return false
         }
 
@@ -884,10 +891,14 @@ class JitsuClientImpl implements JitsuClient {
         this.scheduleFlush(0)
       }
 
-      window.addEventListener("beforeunload", this.flush)
+      window.addEventListener("beforeunload", () => this.flush())
     }
 
-    this.retryTimeout = [options.min_send_timeout ?? 0, options.max_send_timeout ?? 2000]
+    this.retryTimeout = [
+      options.min_send_timeout ?? this.retryTimeout[0],
+      options.max_send_timeout ?? this.retryTimeout[1],
+    ]
+
     if (!!options.max_send_attempts) {
       this.maxSendAttempts = options.max_send_attempts!
     }

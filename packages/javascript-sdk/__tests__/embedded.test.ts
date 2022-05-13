@@ -1,4 +1,4 @@
-import { runUrl, TestServer } from "./common/common";
+import { runUrl, TestServer, waitFor } from "./common/common";
 import { chromium, Browser } from "playwright";
 /**
  * This test verifies that Jitsu SDK with HTML embedding.
@@ -25,6 +25,7 @@ test("test embedded no init", async () => {
   );
   expect(pageResult.consoleErrors.length).toBe(0);
   let requestLog = server.requestLog;
+  await waitFor(() => server.requestLog.length === 2, 1000)
   expect(requestLog.length).toBe(2);
   expect(requestLog[0].api_key).toBe("Test2");
   expect(requestLog[0].src).toBe("eventn");
@@ -45,12 +46,8 @@ test("test segment intercept", async () => {
       "/test-case/segment-intercept.html?gclid=1&utm_source=UTM-SOURCE"
     )
   );
+  await waitFor(() => server.requestLog.length === 4, 1000)
   expect(consoleErrors.length).toBe(0);
-  expect(
-    allRequests.filter(
-      (req) => req.url().indexOf("https://api.segment.io/v1/") >= 0
-    ).length
-  ).toBe(server.requestLog.length);
   console.log(
     `Request log (${server.requestLog.length})`,
     JSON.stringify(server.requestLog, null, 2)
@@ -67,7 +64,7 @@ test("test embedded", async () => {
   );
   expect(pageResult.consoleErrors.length).toBe(0);
   let requestLog = server.requestLog;
-  expect(requestLog.length).toBe(2);
+  await waitFor(() => requestLog.length === 2, 1000)
   expect(requestLog[0].api_key).toBe("Test");
   expect(requestLog[0].click_id.gclid).toBe("1");
   expect(requestLog[0].user.anonymous_id).toBeDefined();
@@ -88,7 +85,7 @@ test("test privacy policy", async () => {
   );
   expect(pageResult.consoleErrors.length).toBe(0);
   let requestLog = server.requestLog;
-  expect(requestLog.length).toBe(2);
+  await waitFor(() => requestLog.length === 2, 1000)
   expect(requestLog[0].api_key).toBe("Test");
   expect(requestLog[0].click_id.gclid).toBe("1");
   expect(requestLog[0].user.anonymous_id).toBe("");
@@ -113,7 +110,7 @@ test("test tag destination", async () => {
       .length
   ).toBe(1);
   let requestLog = server.requestLog;
-  expect(requestLog.length).toBe(1);
+  await waitFor(() => requestLog.length === 1, 1000)
   expect(requestLog[0].api_key).toBe("Test");
   expect(requestLog[0].click_id.gclid).toBe("1");
   expect(requestLog[0].user.anonymous_id).toBeDefined();

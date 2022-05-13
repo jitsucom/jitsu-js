@@ -10,7 +10,6 @@
 import { envs, jitsuClient } from "../src/jitsu";
 import { JitsuClient } from "../src/interface";
 import { sleep, waitFor } from "./common/common";
-import * as jest from "jest"
 
 type RequestCache = {
   url: string;
@@ -49,7 +48,14 @@ class XHRMock {
       return
     }
 
-    requestLog.push({ url: this.url, headers: this.headers, payload });
+    payload = JSON.parse(payload)
+    if (Array.isArray(payload)) {
+      payload.forEach(event =>
+        requestLog.push({ url: this.url, headers: this.headers, payload: JSON.stringify(event) }))
+    } else {
+      requestLog.push({ url: this.url, headers: this.headers, payload: JSON.stringify(payload) });
+    }
+
     this.status = 200;
     if (this.onload) {
       this.onload()
@@ -57,13 +63,19 @@ class XHRMock {
   }
 }
 
+beforeEach(() => {
+  requestLog.length = 0
+  mockDisabled = false
+  localStorage.clear()
+})
+
 beforeAll(() => {
   // @ts-ignore
   window.XMLHttpRequest = XHRMock;
 });
 
-test("test browser", async () => {
-  let counter = 0;
+test("test browser sync", async () => {
+  let counter = 0
   let jitsu: JitsuClient = jitsuClient({
     key: "Test",
     tracking_host: "https://test-host.com",
@@ -115,13 +127,11 @@ test("test browser with retries", async () => {
   await sleep(500)
   mockDisabled = false
 
-  await waitFor(() => requestLog.length === 1, 1000)
+  await waitFor(() => requestLog.length === 2, 1000)
 
-  const payload = JSON.parse(requestLog[0].payload)
-  console.log("Requests", payload)
-  expect(payload.length).toBe(2)
-  const event1 = payload[0]
-  const event2 = payload[1]
+  console.log("Requests", requestLog)
+  const event1 = JSON.parse(requestLog[0].payload)
+  const event2 = JSON.parse(requestLog[1].payload)
 
   expect(requestLog[0].headers?.test1).toBe("val1")
   expect(requestLog[0].headers?.test2).toBe("val2")
@@ -158,10 +168,8 @@ test("test browser max attempts exceeded", async () => {
 
   await waitFor(() => requestLog.length === 1, 1000)
 
-  const payload = JSON.parse(requestLog[0].payload)
-  console.log("Requests", payload)
-  expect(payload.length).toBe(1)
-  const event2 = payload[0]
+  console.log("Requests", requestLog)
+  const event2 = JSON.parse(requestLog[0].payload)
 
   expect(requestLog[0].headers?.test1).toBe("val1")
   expect(requestLog[0].headers?.test2).toBe("val2")
