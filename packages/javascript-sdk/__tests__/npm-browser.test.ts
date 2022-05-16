@@ -74,39 +74,6 @@ beforeAll(() => {
   window.XMLHttpRequest = XHRMock;
 });
 
-test("test browser sync", async () => {
-  let counter = 0
-  let jitsu: JitsuClient = jitsuClient({
-    key: "Test",
-    tracking_host: "https://test-host.com",
-    custom_headers: () => ({
-      "test1": "val1",
-      "test2": "val" + (counter++)
-    }),
-    max_send_attempts: 1
-  });
-  await jitsu.id({ email: "john.doe@gmail.com", id: "1212" });
-  await jitsu.track("page_view", { test: 1 });
-  expect(requestLog.length).toBe(2)
-  console.log("Requests", requestLog)
-  const event1 = JSON.parse(requestLog[0].payload)
-  const event2 = JSON.parse(requestLog[1].payload)
-
-  expect(requestLog[0].headers?.test2).toBe("val0")
-  expect(requestLog[1].headers?.test2).toBe("val1")
-
-  expect(requestLog[0].headers?.test1).toBe("val1")
-  expect(requestLog[1].headers?.test1).toBe("val1")
-
-  expect(event1?.user?.anonymous_id).toBe(event2?.user?.anonymous_id)
-  expect(event1?.user?.email).toBe('john.doe@gmail.com')
-  expect(event2?.user?.email).toBe('john.doe@gmail.com')
-  expect(event1?.user?.id).toBe('1212')
-  expect(event2?.user?.id).toBe('1212')
-  expect(event1.event_type).toBe('user_identify')
-  expect(event2.event_type).toBe('page_view')
-});
-
 test("test browser with retries", async () => {
   mockDisabled = true
   let jitsu: JitsuClient = jitsuClient({
@@ -135,6 +102,39 @@ test("test browser with retries", async () => {
 
   expect(requestLog[0].headers?.test1).toBe("val1")
   expect(requestLog[0].headers?.test2).toBe("val2")
+
+  expect(event1?.user?.anonymous_id).toBe(event2?.user?.anonymous_id)
+  expect(event1?.user?.email).toBe('john.doe@gmail.com')
+  expect(event2?.user?.email).toBe('john.doe@gmail.com')
+  expect(event1?.user?.id).toBe('1212')
+  expect(event2?.user?.id).toBe('1212')
+  expect(event1.event_type).toBe('user_identify')
+  expect(event2.event_type).toBe('page_view')
+});
+
+test("test browser sync", async () => {
+  let counter = 0
+  let jitsu: JitsuClient = jitsuClient({
+    key: "Test",
+    tracking_host: "https://test-host.com",
+    custom_headers: () => ({
+      "test1": "val1",
+      "test2": "val" + (counter++)
+    }),
+    max_send_attempts: 1
+  });
+  await jitsu.id({ email: "john.doe@gmail.com", id: "1212" });
+  await jitsu.track("page_view", { test: 1 });
+  expect(requestLog.length).toBe(2)
+  console.log("Requests", requestLog)
+  const event1 = JSON.parse(requestLog[0].payload)
+  const event2 = JSON.parse(requestLog[1].payload)
+
+  expect(requestLog[0].headers?.test2).toBe("val0")
+  expect(requestLog[1].headers?.test2).toBe("val1")
+
+  expect(requestLog[0].headers?.test1).toBe("val1")
+  expect(requestLog[1].headers?.test1).toBe("val1")
 
   expect(event1?.user?.anonymous_id).toBe(event2?.user?.anonymous_id)
   expect(event1?.user?.email).toBe('john.doe@gmail.com')
