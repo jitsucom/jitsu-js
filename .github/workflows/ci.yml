@@ -1,0 +1,27 @@
+name: JitsuJS
+
+on:
+  push:
+    branches:
+      - '**'
+jobs:
+  dagger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Init dagger (dagger project init)
+        uses: dagger/dagger-for-github@v2
+        with:
+          args: project init
+
+      - name: Update dagger (dagger project update)
+        uses: dagger/dagger-for-github@v2
+        with:
+          args: project update
+
+      - name: Test with dagger (dagger do test)
+        uses: dagger/dagger-for-github@v2
+        with:
+          args: do test

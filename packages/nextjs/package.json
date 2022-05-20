@@ -36,8 +36,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4"
   },
   "scripts": {
-    "build": "rollup -c && tsc",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "rollup -c && tsc"
   },
   "repository": {
     "type": "git",

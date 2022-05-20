@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "lerna": "lerna",
+    "boot": "yarn lerna bootstrap",
     "build": "yarn lerna run --stream --concurrency 1 --sort build",
-    "publish": "yarn lerna run build && yarn lerna publish"
+    "publish": "yarn lerna run build && yarn lerna publish",
+    "test": "yarn lerna run test"
   },
   "devDependencies": {
     "@types/node": "^17.0.22",
