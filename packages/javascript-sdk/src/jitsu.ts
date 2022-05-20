@@ -608,7 +608,7 @@ class JitsuClientImpl implements JitsuClient {
 
     let headers = {
       ...this.customHeaders(),
-      authorization: `bearer ${this.apiKey}`
+      "x-auth-token": this.apiKey
     }
 
     let jsonString = JSON.stringify(json);
