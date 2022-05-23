@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/react",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "Jitsu JavaScript SDK for React (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jitsu/sdk-js": "^3.0.3"
+    "@jitsu/sdk-js": "^3.1.0"
   },
   "peerDependencies": {
     "react": "15.x || 16.x || 17.x || 18.x",
