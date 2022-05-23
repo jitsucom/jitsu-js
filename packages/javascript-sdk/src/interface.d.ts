@@ -205,6 +205,29 @@ export type JitsuOptions = {
    */
   custom_headers?: Record<string, string> | (() => Record<string, string>)
 
+  /**
+   * Minimum timeout before re-attempting to send events.
+   * Defaults to 0.
+   */
+  min_send_timeout?: number
+
+  /**
+   * Maximum timeout before re-attempting to send events.
+   * Defaults to 2 seconds.
+   */
+  max_send_timeout?: number
+
+  /**
+   * Maximum number of send event attempts.
+   * Defaults to 4.
+   */
+  max_send_attempts?: number
+
+  /**
+   * Whether failed events should NOT be persisted when applicable.
+   */
+  disable_event_persistence?: boolean
+
   //NOTE: If any property is added here, please make sure it's added to browser.ts jitsuProps as well
 };
 

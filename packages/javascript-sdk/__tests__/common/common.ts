@@ -9,7 +9,7 @@ import * as core from "express-serve-static-core";
 
 type Callback = (() => void) | null;
 
-async function sleep(ms: number) {
+export async function sleep(ms: number) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(undefined);
@@ -69,15 +69,26 @@ export class TestServer {
     const eventHandler = (req, res: core.Response, next) => {
       let bodyJson =
         typeof req.body === "object" ? req.body : JSON.parse(req.body);
-      this._requestLog.push(bodyJson);
+      let jitsuSdkExtras: any = undefined
+      if (Array.isArray(bodyJson)) {
+        this._requestLog.push(...bodyJson)
+        if (bodyJson.length) {
+          jitsuSdkExtras = bodyJson[0].jitsu_sdk_extras
+        }
+      } else {
+        this._requestLog.push(bodyJson)
+        jitsuSdkExtras = bodyJson.jitsu_sdk_extras
+      }
+
       console.log(
         "Received payload from JS SDK",
         JSON.stringify(bodyJson, null, 2)
       );
-      if (bodyJson.jitsu_sdk_extras) {
+
+      if (jitsuSdkExtras) {
         //to simulate synchronous destination produce response from incoming event.
         res.send(
-          JSON.stringify({ jitsu_sdk_extras: bodyJson.jitsu_sdk_extras })
+          JSON.stringify({ jitsu_sdk_extras: jitsuSdkExtras })
         );
       } else {
         res.send("{}");
@@ -165,4 +176,23 @@ export async function runUrl(
 
   await page.close();
   return { allRequests, consoleErrors, pageResponse: result as Response };
+}
+
+export function waitFor(cond: () => boolean, timeout?: number, start?: number): Promise<void> {
+  start = start ?? new Date().getTime()
+  timeout = timeout ?? 5000
+  if (new Date().getTime() > timeout + start) {
+    return Promise.reject("timeout")
+  }
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!cond()) {
+        waitFor(cond, timeout, start).then(resolve).catch(reject)
+        return
+      }
+
+      resolve()
+    }, 100)
+  })
 }

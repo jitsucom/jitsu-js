@@ -33,6 +33,7 @@ async function createTestServer()  {
       fetch: fetchMock,
       key: "Test",
       tracking_host: "https://test-host.com",
+      max_send_attempts: 1,
     });
     console.log('Processed. Sending data to Jitsu')
     try {
