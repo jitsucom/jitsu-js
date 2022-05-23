@@ -595,25 +595,22 @@ class JitsuClientImpl implements JitsuClient {
   }
 
   private doSendJson(json: any): Promise<void> {
+    let cookiePolicy =
+      this.cookiePolicy !== "keep" ? `&cookie_policy=${this.cookiePolicy}` : "";
+    let ipPolicy =
+      this.ipPolicy !== "keep" ? `&ip_policy=${this.ipPolicy}` : "";
     let urlPrefix = isWindowAvailable() ? "/api/v1/event" : "/api/v1/s2s/event";
-    let url = this.randomizeUrl ? `${this.trackingHost}/api.${generateRandom()}` : `${this.trackingHost}${urlPrefix}`;
-    let hasQueryParams = false
-    if (this.cookiePolicy !== "keep") {
-      url += `?cookie_policy=${this.cookiePolicy}`
-      hasQueryParams = true
+    let url = `${this.trackingHost}${urlPrefix}?token=${this.apiKey}${cookiePolicy}${ipPolicy}`;
+    if (this.randomizeUrl) {
+      url = `${
+        this.trackingHost
+      }/api.${generateRandom()}?p_${generateRandom()}=${
+        this.apiKey
+      }${cookiePolicy}${ipPolicy}`;
     }
-    if (this.ipPolicy !== "keep") {
-      url += (hasQueryParams ? "&" : "?") + `ip_policy=${this.ipPolicy}`
-    }
-
-    let headers = {
-      ...this.customHeaders(),
-      "x-auth-token": this.apiKey
-    }
-
     let jsonString = JSON.stringify(json);
     getLogger().debug(`Sending payload to ${url}`, jsonString);
-    return this.transport(url, jsonString, headers, (code, body) =>
+    return this.transport(url, jsonString, this.customHeaders(), (code, body) =>
       this.postHandle(code, body)
     );
   }
