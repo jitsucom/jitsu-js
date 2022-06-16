@@ -453,18 +453,33 @@ const fetchTransport: (fetch: any) => Transport = (fetch) => {
     } catch (e) {
       getLogger().error("Failed to send", jsonPayload, e);
       handler(-1, {});
-      throw new Error(`Failed to send JSON. See console logs`);
+      return
     }
     if (res.status !== 200) {
       getLogger().warn(
         `Failed to send data to ${url} (#${res.status} - ${res.statusText})`,
         jsonPayload
       );
-      throw new Error(
-        `Failed to send JSON. Error code: ${res.status}. See logs for details`
-      );
+      handler(res.status, {});
+      return
     }
-    let resJson = await res.json();
+    let resJson = {} as any;
+    const contentType = res.headers?.get('Content-Type')??""
+    if (contentType.startsWith("application/json")) {
+      try {
+        resJson = await res.json();
+      } catch (e) {
+        resJson.text = await res.text();
+        getLogger().error(`Failed to parse response. URL: ${url} Response type: ${res.type} text: ${resJson.text}`,  e);
+      }
+    } else {
+      resJson.text = await res.text();
+      try {
+        resJson = JSON.parse(resJson.text);
+      } catch (e) {
+        getLogger().error(`Unexpected response Content-type: ${contentType}. URL: ${url} Response type: ${res.type} text: ${resJson.text}`,  e);
+      }
+    }
     handler(res.status, resJson);
   };
 };
