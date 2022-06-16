@@ -464,23 +464,19 @@ const fetchTransport: (fetch: any) => Transport = (fetch) => {
       return
     }
     let resJson = {} as any;
+    let text = "";
     const contentType = res.headers?.get('Content-Type')??""
-    if (contentType.startsWith("application/json")) {
-      try {
-        resJson = await res.json();
-      } catch (e) {
-        resJson.text = await res.text();
-        getLogger().error(`Failed to parse response. URL: ${url} Response type: ${res.type} text: ${resJson.text}`,  e);
-      }
-    } else {
-      resJson.text = await res.text();
-      try {
-        resJson = JSON.parse(resJson.text);
-      } catch (e) {
-        getLogger().error(`Unexpected response Content-type: ${contentType}. URL: ${url} Response type: ${res.type} text: ${resJson.text}`,  e);
-      }
+    try {
+      text = await res.text();
+      resJson = JSON.parse(text);
+    } catch (e) {
+      getLogger().error(`Failed to parse ${url} response. Content-type: ${contentType} text: ${text}`, e);
     }
-    handler(res.status, resJson);
+    try {
+      handler(res.status, resJson);
+    } catch (e) {
+      getLogger().error(`Failed to handle ${url} response. Content-type: ${contentType} text: ${text}`, e);
+    }
   };
 };
 

@@ -84,6 +84,7 @@ export class TestServer {
         "Received payload from JS SDK",
         JSON.stringify(bodyJson, null, 2)
       );
+      res.setHeader("Content-Type", "application/json");
 
       if (jitsuSdkExtras) {
         //to simulate synchronous destination produce response from incoming event.
