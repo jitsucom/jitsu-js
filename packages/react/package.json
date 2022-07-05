@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/react",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Jitsu JavaScript SDK for React (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",

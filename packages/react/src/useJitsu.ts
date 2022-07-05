@@ -12,28 +12,38 @@ function useJitsu(): JitsuClient & {trackPageView: () => Promise<void>} {
   }
 
   const id = useCallback(
-    (userData: UserProps, doNotSendEvent?: boolean): Promise<void> => client?.id(userData, doNotSendEvent),
-    [client],
+      (userData: UserProps, doNotSendEvent?: boolean): Promise<void> => client?.id(userData, doNotSendEvent),
+      [client],
   )
 
   const trackPageView = useCallback(
-    (): Promise<void> => client?.track('pageview'),
-    [client],
+      (): Promise<void> => client?.track('pageview'),
+      [client],
   )
 
   const track = useCallback(
-    (typeName: string, payload?: EventPayload): Promise<void> => client?.track(typeName, payload),
-    [client],
+      (typeName: string, payload?: EventPayload): Promise<void> => client?.track(typeName, payload),
+      [client],
   )
 
   const rawTrack = useCallback(
-    (payload: any): Promise<void> => client?.rawTrack(payload),
-    [client],
+      (payload: any): Promise<void> => client?.rawTrack(payload),
+      [client],
   )
 
   const interceptAnalytics = useCallback(
-    (analytics: any): void => client?.interceptAnalytics(analytics),
-    [client],
+      (analytics: any): void => client?.interceptAnalytics(analytics),
+      [client],
+  )
+
+  const set = useCallback(
+      (properties: Record<string, any>, opts?: { eventType?: string, persist?: boolean }): void => client?.set(properties, opts),
+      [client],
+  )
+
+  const unset = useCallback(
+      (propertyName: string, opts?: { eventType?: string, persist?: boolean }): void => client?.unset(propertyName, opts),
+      [client],
   )
 
   return {
@@ -42,7 +52,9 @@ function useJitsu(): JitsuClient & {trackPageView: () => Promise<void>} {
     track,
     trackPageView,
     rawTrack,
-    interceptAnalytics
+    interceptAnalytics,
+    set,
+    unset
   }
 }
 
