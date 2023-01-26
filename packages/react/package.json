@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/react",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "description": "Jitsu JavaScript SDK for React (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jitsu/sdk-js": "^3.1.3"
+    "@jitsu/sdk-js": "^3.1.4"
   },
   "peerDependencies": {
     "react": "15.x || 16.x || 17.x || 18.x",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.2",
-    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-node-resolve": "^13.1.4",
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/react": "^17.0.43",
     "react": "^17.0.2",
@@ -43,5 +43,5 @@
     "url": "https://github.com/jitsucom/jitsu-js",
     "directory": "packages/react"
   },
-  "gitHead": "eff7da6319fa66d8391a025c0fca2f481ced7c78"
+  "gitHead": "67c139baf307b37820ddda884284bd5192bfbf66"
 }
