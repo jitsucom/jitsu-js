@@ -400,8 +400,8 @@ const xmlHttpTransport: Transport = (
 ) => {
   let req = new window.XMLHttpRequest();
   return new Promise<void>((resolve, reject) => {
-    req.onerror = (e) => {
-      getLogger().error("Failed to send", jsonPayload, e);
+    req.onerror = (e: any) => {
+      getLogger().error(`Failed to send payload to ${url}: ${e?.message || "unknown error"}`, jsonPayload, e);
       handler(-1, {});
       reject(new Error(`Failed to send JSON. See console logs`));
     };
@@ -450,8 +450,8 @@ const fetchTransport: (fetch: any) => Transport = (fetch) => {
         },
         body: jsonPayload,
       });
-    } catch (e) {
-      getLogger().error("Failed to send", jsonPayload, e);
+    } catch (e: any) {
+      getLogger().error(`Failed to send data to ${url}: ${e?.message || "unknown error"}`, jsonPayload, e);
       handler(-1, {});
       return
     }

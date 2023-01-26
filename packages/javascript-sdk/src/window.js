@@ -2,10 +2,12 @@
  * Checks if global variable 'window' is available. If it's available,
  * code runs in browser environment
  */
-import { getLogger } from "./log"
+import {getLogger} from "./log"
 
 export function isWindowAvailable(warnMsg = undefined) {
-  let windowAvailable = !!globalThis.window
+  //here we check not only of window object is globally available, but also if it's not a fake one
+  //react-native do have a window object, but it's not a real one: https://stackoverflow.com/questions/49911424/what-does-the-variable-window-represent-in-react-native
+  const windowAvailable = !!globalThis.window && !!globalThis.window.document && !!globalThis.window.location
   if (!windowAvailable && warnMsg) {
     getLogger().warn(warnMsg);
   }
