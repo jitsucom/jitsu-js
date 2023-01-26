@@ -1,6 +1,6 @@
 {
   "name": "@jitsu/nextjs",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Jitsu JavaScript SDK for NextJS (more at http://jitsu.com/docs/js-sdk)",
   "author": "Jitsu Dev <dev@jitsu.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@jitsu/sdk-js": "^3.1.4",
+    "@jitsu/sdk-js": "^3.1.5",
     "cookie": "^0.5.0"
   },
   "peerDependencies": {
