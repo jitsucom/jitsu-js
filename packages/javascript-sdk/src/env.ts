@@ -26,5 +26,7 @@ export function requireWindow(msg = undefined) {
   return window;
 }
 
+export const isThisServiceWorker = () => typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
 
+export const isThisBrowser = () => isWindowAvailable() || isThisServiceWorker();
 

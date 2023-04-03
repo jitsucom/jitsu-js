@@ -1,4 +1,4 @@
-import { isWindowAvailable } from "./window"
+import { isWindowAvailable } from "./env"
 
 /**
  * Interface for logging. Plugins might use it
