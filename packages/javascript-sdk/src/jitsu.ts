@@ -28,7 +28,7 @@ import {
   UserProps,
 } from "./interface";
 import { getLogger, setRootLogLevel } from "./log";
-import { isWindowAvailable, requireWindow } from "./window";
+import { isWindowAvailable, isThisBrowser, requireWindow, isThisServiceWorker } from "./env";
 import { CookieOpts, serializeCookie } from "./cookie";
 import { IncomingMessage, ServerResponse } from "http";
 import { LocalStorageQueue, MemoryQueue } from "./queue";
@@ -610,7 +610,7 @@ class JitsuClientImpl implements JitsuClient {
       this.cookiePolicy !== "keep" ? `&cookie_policy=${this.cookiePolicy}` : "";
     let ipPolicy =
       this.ipPolicy !== "keep" ? `&ip_policy=${this.ipPolicy}` : "";
-    let urlPrefix = isWindowAvailable() ? "/api/v1/event" : "/api/v1/s2s/event";
+    let urlPrefix = isThisBrowser() ? "/api/v1/event" : "/api/v1/s2s/event";
     let url = `${this.trackingHost}${urlPrefix}?token=${this.apiKey}${cookiePolicy}${ipPolicy}`;
     if (this.randomizeUrl) {
       url = `${
@@ -644,7 +644,7 @@ class JitsuClientImpl implements JitsuClient {
   }
 
   private async flush(): Promise<void> {
-    if (isWindowAvailable() && !window.navigator.onLine) {
+    if (isThisBrowser() && !globalThis.navigator.onLine) {
       this.flushing = false
       this.scheduleFlush()
     }
@@ -700,8 +700,8 @@ class JitsuClientImpl implements JitsuClient {
         data = JSON.parse(response);
         let extras = data["jitsu_sdk_extras"];
         if (extras && extras.length > 0) {
-          const isWindow = isWindowAvailable();
-          if (!isWindow) {
+          const isBrowser = isThisBrowser();
+          if (!isBrowser) {
             getLogger().error(
               "Tags destination supported only in browser environment"
             );
@@ -771,13 +771,13 @@ class JitsuClientImpl implements JitsuClient {
   }
 
   init(options: JitsuOptions) {
-    if (isWindowAvailable() && !options.force_use_fetch) {
+    if (isThisBrowser() && !options.force_use_fetch) {
       if (options.fetch) {
         getLogger().warn(
           "Custom fetch implementation is provided to Jitsu. However, it will be ignored since Jitsu runs in browser"
         );
       }
-      this.transport = this.beaconApi ? beaconTransport : xmlHttpTransport;
+      this.transport = this.beaconApi ? beaconTransport : isThisServiceWorker() ? fetchTransport(globalThis.fetch) : xmlHttpTransport;
     } else {
       if (!options.fetch && !globalThis.fetch) {
         throw new Error(

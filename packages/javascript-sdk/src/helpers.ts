@@ -1,4 +1,4 @@
-import { isWindowAvailable, requireWindow } from "./window";
+import { isWindowAvailable, requireWindow } from "./env";
 import { CookieOpts, serializeCookie } from "./cookie";
 
 export const getCookieDomain = () => {
