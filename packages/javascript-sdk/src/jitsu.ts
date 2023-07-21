@@ -159,7 +159,7 @@ type PermanentProperties = {
 };
 
 const browserEnv: TrackingEnvironment = {
-  getSourceIp: () => undefined,
+  getSourceIp: () => 'ip_policy',
   describeClient: () => ({
     referer: document.referrer,
     url: window.location.href,
@@ -375,7 +375,7 @@ export function httpApi(
 }
 
 const emptyEnv: TrackingEnvironment = {
-  getSourceIp: () => undefined,
+  getSourceIp: () => 'ip_policy',
   describeClient: () => ({}),
   getAnonymousId: () => "",
 };

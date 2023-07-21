@@ -436,7 +436,7 @@ var LocalStorageQueue = /** @class */ (function () {
 //import { parse } from "node-html-parser";
 var VERSION_INFO = {
     env: "production",
-    date: "2023-04-05T00:18:44.442Z",
+    date: "2023-07-21T12:51:32.024Z",
     version: "3.1.5",
 };
 var JITSU_VERSION = "".concat(VERSION_INFO.version, "/").concat(VERSION_INFO.env, "@").concat(VERSION_INFO.date);
@@ -525,7 +525,7 @@ function jitsuClient(opts) {
     return client;
 }
 var browserEnv = {
-    getSourceIp: function () { return undefined; },
+    getSourceIp: function () { return 'ip_policy'; },
     describeClient: function () { return ({
         referer: document.referrer,
         url: window.location.href,
@@ -710,7 +710,7 @@ function httpApi(req, res, opts) {
     };
 }
 var emptyEnv = {
-    getSourceIp: function () { return undefined; },
+    getSourceIp: function () { return 'ip_policy'; },
     describeClient: function () { return ({}); },
     getAnonymousId: function () { return ""; },
 };
