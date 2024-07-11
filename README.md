@@ -1,5 +1,17 @@
 # Jitsu JavaScript SDK
 
+## Deprecated
+
+This repository is no longer maintained due to the release of a [Jitsu 2.0](https://jitsu.com) with breaking changes.
+
+Please note that this repository is deprecated and is no longer being actively developed or maintained.
+
+For any new developments, please refer to the [Jitsu 2.0 docs](https://docs.jitsu.com/sending-data/)
+
+Thank you for your understanding.
+
+## Jitsu JavaScript SDK
+
 Jitsu SDK is a JavaScript SDK for [Jitsu](https://jitsu.com).
 
 Please, see [Jitsu JavaScript integration docs](https://jitsu.com/docs/sending-data/js-sdk) on the website.
