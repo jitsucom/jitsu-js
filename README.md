@@ -2,7 +2,7 @@
 
 ## Deprecated
 
-This repository is no longer maintained due to the release of a [Jitsu 2.0](https://jitsu.com) with breaking changes.
+**This repository is no longer maintained due to the release of a [Jitsu 2.0](https://jitsu.com) with breaking changes.**
 
 Please note that this repository is deprecated and is no longer being actively developed or maintained.
 
